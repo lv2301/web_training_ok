@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+{% block title %}Cuota Mensual{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-4">Mi Cuota Mensual</h3>
+
+      {% if cuota %}
+        <p><strong>Fecha de inicio:</strong> {{ cuota.fecha_inicio|date:"d/m/Y" }}</p>
+        <p><strong>Fecha de vencimiento:</strong> {{ cuota.fecha_vencimiento|date:"d/m/Y" }}</p>
+        <p><strong>Monto:</strong> ${{ cuota.monto }}</p>
+        <p><strong>Estado:</strong>
+          {% if cuota.pagado %}
+            <span class="badge bg-success">Pagada</span>
+          {% else %}
+            <span class="badge bg-danger">Pendiente</span>
+          {% endif %}
+        </p>
+
+        {% if whatsapp_url and not cuota.pagado %}
+          <div class="text-center mt-4">
+            <a href="{{ whatsapp_url }}" class="btn btn-success btn-lg">Pagar por WhatsApp</a>
+          </div>
+        {% endif %}
+
+      {% else %}
+        <div class="alert alert-info text-center">
+          No tenés una cuota registrada aún.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

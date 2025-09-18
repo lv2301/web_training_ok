@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+{% block title %}Acceso Restringido{% endblock %}
+{% block content %}
+
+<div class="container text-center mt-5">
+    <h2 class="text-danger">Acceso Restringido</h2>
+    <p>No tienes permiso para acceder a esta sección. Esta área es exclusiva para clientes activos.</p>
+    <a href="{% url 'profile' %}" class="btn btn-primary">Volver al Perfil</a>
+</div>
+
+{% endblock %}

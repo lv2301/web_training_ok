@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{page.title}}{% endblock %}
+{% block content %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5">
+      <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+          <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Mis Servicios</h4>
+          <div class="d-inline-flex">
+              <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+              <p class="m-0 text-white px-2">/</p>
+              <p class="m-0 text-white">Servicios</p>
+          </div>
+      </div>
+  </div>
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto">
+        <h2 class="section-heading mb-4">{{object.title}}</h2>
+        <div>
+          {{page.content|safe}}
+          {% if request.user.is_staff %}
+            <p><a href="{% url 'pages:update' page.id %}">Editar</a></p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% if page.mostrar_precio %}
+  <div class="mt-5 p-4 bg-light border rounded text-center shadow-sm">
+    <h5 class="mb-2">Valor del servicio:</h5>
+    {% if page.price %}
+      <p class="h4 text-primary mb-3">${{ page.price }}</p>
+      <a href="{% url 'pages:pagar_servicio' page.slug %}" class="btn btn-success">Realizar pago</a>
+    {% else %}
+      <p class="text-muted">Consultar precio</p>
+      <a href="https://wa.me/5493511234567" target="_blank" class="btn btn-outline-primary">Consultar por WhatsApp</a>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% endblock %}

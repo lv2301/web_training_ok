@@ -1,0 +1,131 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Mi Perfil{% endblock %}
+{% block content %}
+
+<style>
+  .card-modern {
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .btn-modern {
+    border-radius: 1rem;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-modern:hover {
+    transform: scale(1.02);
+  }
+
+  .avatar-xl {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #dc3545;
+  }
+
+  .profile-info p {
+    margin-bottom: 0.5rem;
+  }
+
+  .d-grid .btn {
+    margin-bottom: 1rem; /* Esto agrega separación entre los botones */
+  }
+
+  .area-entrenamiento .btn {
+    margin-bottom: 1rem; /* Esto agrega separación entre los botones en el área de entrenamiento */
+  }
+
+</style>
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+      <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Dashboard</h4>
+      <div class="d-inline-flex">
+          <p class="m-0 text-white"><a class="text-white" href="{% url 'home' %}">Inicio</a></p>
+          <p class="m-0 text-white px-2">/</p>
+          <p class="m-0 text-white">Mi Perfil</p>
+      </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<main class="container py-4">
+  <!-- Bienvenida -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-danger">👤 Mi Perfil</h2>
+    <p class="text-muted">Hola, {{ profile.user }} — bienvenido a tu panel personal</p>
+  </div>
+
+  <!-- Card de Perfil -->
+  <div class="card card-modern mb-4 p-4">
+    <div class="text-center">
+      <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'registration/img/no-avatar.jpg' %}{% endif %}"
+           class="avatar-xl mb-3" alt="Avatar">
+
+      <h4 class="fw-semibold mb-1">{{ profile.full_name }}</h4>
+      {% if request.user.profile.is_client %}
+        <span class="badge bg-success">Cliente Activo</span>
+      {% endif %}
+    </div>
+
+    <hr>
+
+    <div class="profile-info">
+      <p><strong>Edad:</strong> {{ profile.age }}</p>
+      <p><strong>Nacimiento:</strong> {{ profile.birth_date|date:"d/m/Y" }}</p>
+      <p><strong>Teléfono:</strong> {{ profile.phone }}</p>
+      <p><strong>Biografía:</strong> {{ profile.bio|default:"Sin descripción" }}</p>
+      <p><strong>Enlace Personal:</strong>
+        {% if profile.link %}
+          <a href="{{ profile.link }}" class="text-danger" target="_blank">{{ profile.link }}</a>
+        {% else %}
+          <span class="text-muted">No definido</span>
+        {% endif %}
+      </p>
+    </div>
+
+    <div class="d-grid gap-2 mt-4">
+      <a href="{% url 'profile_edit' %}" class="btn btn-danger btn-modern">✏️ Editar Perfil</a>
+      <a href="{% url 'profile_email' %}" class="btn btn-dark btn-modern">📧 Cambiar Email</a>
+      <a href="{% url 'password_change' %}" class="btn btn-outline-secondary btn-modern">🔒 Cambiar Contraseña</a>
+    </div>
+  </div>
+
+  <!-- Área de Entrenamiento -->
+  {% if request.user.profile.is_client %}
+    <div class="card card-modern p-4">
+      <h5 class="text-danger fw-bold text-center mb-3">🏋️ Área de Entrenamiento</h5>
+      <div class="row g-3 area-entrenamiento">
+        <div class="col-6">
+          <a href="{% url 'workouts:mi_rutina' %}" class="btn btn-danger btn-modern w-100 text-start">
+            📋 Mi Rutina
+          </a>
+        </div>
+        <div class="col-6">
+          <a href="{% url 'profiles:cuaderno' %}" class="btn btn-success btn-modern w-100 text-start">
+            📈 Mis Avances
+          </a>
+        </div>
+        <div class="col-6">
+          <a href="{% url 'shop:product_list' %}" class="btn btn-dark btn-modern w-100 text-start">
+            🛒 Tienda
+          </a>
+        </div>
+        <div class="col-6">
+          <a href="{% url 'profiles:cuota' %}" class="btn btn-outline-danger btn-modern w-100 text-start">
+            💳 Cuota
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</main>
+
+{% endblock %}

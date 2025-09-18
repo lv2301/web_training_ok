@@ -1,0 +1,160 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+
+<style>
+    .blog-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .blog-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .blog-item img {
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .blog-item img:hover {
+      transform: scale(1.03);
+    }
+
+    .blog-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-item p {
+      color: #555;
+    }
+
+    .blog-item .btn {
+      border-radius: 30px;
+      font-weight: 500;
+    }
+
+    .blog-item .btn i {
+      transition: transform 0.2s ease;
+    }
+
+    .blog-item .btn:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Paginación moderna */
+    .pagination .page-link {
+      border-radius: 50px;
+      margin: 0 5px;
+      padding: 0.5rem 1rem;
+      color: #007bff;
+      border-color: #007bff;
+    }
+
+    .pagination .page-item.active .page-link {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .blog-item {
+        padding: 1rem;
+      }
+
+      .blog-item h3 {
+        font-size: 1.25rem;
+      }
+
+      .blog-item img {
+        margin-bottom: 1rem;
+      }
+    }
+</style>
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+        <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">LVTRAINER BLOG</h4>
+        <div class="d-inline-flex">
+            <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+            <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">Blog</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Blog Start -->
+<div class="container pt-5">
+    <div class="d-flex flex-column text-center mb-5">
+        <h4 class="text-primary font-weight-bold">LVTRAINER BLOG</h4>
+        <h4 class="display-4 font-weight-bold">Últimos Artículos del Blog</h4>
+    </div>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-lg-6 mb-5 blog-item">
+            <img class="img-fluid mb-4" src="{{ post.image.url }}" alt="{{ post.title }}">
+            <div class="d-flex align-items-center mb-4">
+                <div class="d-flex flex-column align-items-center justify-content-center rounded-circle bg-primary text-white" style="width: 80px; height: 80px;">
+                    <small>{{ post.created_at|date:"d" }}</small>
+                    <strong class="text-uppercase m-0 text-white">{{ post.created_at|date:"M" }}</strong>
+                    <small>{{ post.created_at|date:"Y" }}</small>
+                </div>
+                <div class="pl-3">
+                    <h3 class="font-weight-bold">{{ post.title }}</h3>
+                    <div class="d-flex">
+                        <small class="mr-2 text-muted"><i class="fa fa-user"></i> {{ post.author.username }}</small>
+                        <small class="mr-2 text-muted"><i class="fa fa-comments"></i> 0 Comments</small>
+                    </div>
+                </div>
+            </div>
+            <p>{{ post.content|striptags|truncatewords:30 }}</p>
+            <a class="btn btn-outline-primary mt-2 px-3" href="{% url 'blog_detail' post.slug %}">Read More <i class="fa fa-angle-right"></i></a>
+        </div>
+        {% empty %}
+        <p>No hay artículos disponibles.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Paginación -->
+    <div class="col-lg-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mb-4">
+                {% if posts.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for num in posts.paginator.page_range %}
+                    <li class="page-item {% if posts.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if posts.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- Blog End -->
+
+{% endblock %}

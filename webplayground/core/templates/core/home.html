@@ -1,0 +1,419 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+<!-- Carousel Start -->
+<div class="container-fluid p-0">
+  <div id="blog-carousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <!-- Imagen para escritorio -->
+        <img class="d-none d-md-block w-100" src="{% static 'core/img/banner-1.png' %}" alt="Banner desktop">
+        <!-- Imagen para mobile -->
+        <img class="d-block d-md-none w-100" src="{% static 'core/img/banner-1-mobile.png' %}" alt="Banner mobile">
+      </div>
+    
+      <div class="carousel-item">
+        <img class="d-none d-md-block w-100" src="{% static 'core/img/banner-2.png' %}" alt="Banner desktop">
+        <img class="d-block d-md-none w-100" src="{% static 'core/img/banner-2-mobile.png' %}" alt="Banner mobile">
+      </div>
+    
+      <div class="carousel-item">
+        <img class="d-none d-md-block w-100" src="{% static 'core/img/banner-3.png' %}" alt="Banner desktop">
+        <img class="d-block d-md-none w-100" src="{% static 'core/img/banner-3-mobile.png' %}" alt="Banner mobile">
+      </div>
+    </div>
+    
+
+    <a class="carousel-control-prev" href="#blog-carousel" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#blog-carousel" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+</div>
+<!-- Carousel End -->
+
+  
+<!-- Gym Class Start -->
+<style>
+    .gym-class .gym-class-box {
+      height: 100%;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+      border-radius: 10px;
+    }
+  
+    @media (min-width: 768px) {
+      .gym-class .col-md-4 {
+        margin-bottom: 0 !important;
+      }
+    }
+    .gym-class .gym-class-box {
+    height: 100%;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .gym-class .gym-class-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .gym-class h2,
+  .gym-class h3 {
+    color: #fff !important;
+  }
+
+  .gym-class h2 {
+    font-size: 2.5rem;
+  }
+
+  .gym-class h3 {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 767.98px) {
+    .gym-class .col-md-4 {
+      margin-bottom: 1rem;
+    }
+  }
+    .card {
+    border-radius: 12px;
+  }
+   .card-title {
+  font-size: 0.9rem;
+  }
+  /* Redondeo de la imagen */
+
+  .zoom-effect {
+    border-radius: 20px; /* Más redondeado */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efecto suave de transición */
+}
+
+.zoom-effect:hover {
+    transform: scale(1.1); /* Aumenta el tamaño de la imagen cuando el usuario pasa el mouse */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Agrega una sombra más fuerte al hacer hover */
+}
+
+  
+@media (max-width: 768px) {
+  #blog-carousel img {
+    height: 60vh;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 769px) {
+  #blog-carousel img {
+    height: 75vh;
+    object-fit: cover;
+  }
+}
+.feature-card {
+    transition: all 0.3s ease;
+}
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+.feature-icon i {
+    font-size: 3rem;
+}
+
+</style>
+  
+  <div class="container gym-class mb-5">
+    <div class="row gx-3 gy-4">
+      <!-- ENTRENAMIENTO PERSONAL -->
+      <div class="col-md-4">
+        <div class="gym-class-box bg-primary text-right text-white">
+          <i class="flaticon-six-pack"></i>
+          <h2 class="mb-3 font-weight-bold">ENTRENAMIENTO</h2>
+          <h3 class="mb-3 font-weight-bold">PERSONAL</h3>
+          <p>
+            Plan individual 100% adaptado a tus objetivos (fuerza, estética, salud). Atención uno a uno para progresar de forma segura y eficiente.
+          </p>
+          <a href="{% url 'pages:page' 3 'entrenamiento-personal' %}" class="btn btn-lg btn-outline-light mt-4 px-4">Saber Más</a>
+        </div>
+      </div>
+  
+      <!-- ENTRENAMIENTO GRUPAL -->
+      <div class="col-md-4">
+        <div class="gym-class-box bg-secondary text-left text-white">
+          <i class="flaticon-bodybuilding"></i>
+          <h2 class="mb-3 font-weight-bold">ENTRENAMIENTO</h2>
+          <h3 class="mb-3 font-weight-bold">GRUPAL</h3>
+          <p>
+            Entrená con tu rutina personalizada. En días determinados y en una franja horaria determinadas bajo mi supervicion, control y seguimiento profesional en un ambiente motivador.
+          </p>
+          <a href="{% url 'pages:page' 2 'entrenamiento-grupal' %}" class="btn btn-lg btn-outline-light mt-4 px-4">Saber Más</a>
+        </div>
+      </div>
+  
+      <!-- FUNCIONAL 40+ -->
+      <div class="col-md-4">
+        <div class="gym-class-box bg-primary text-right text-white">
+          <i class="flaticon-six-pack"></i>
+          <h2 class="mb-3 font-weight-bold">ENTRENAMIENTO</h2>
+          <h3 class="mb-3 font-weight-bold">FUNCIONAL 40+</h3>
+          <p>
+            Entrenamiento pensado para hombres y mujeres a partir de los 40 años. Fuerza, movilidad y bienestar adaptado a tu edad y nivel. Sentite bien, fuerte y activo.
+          </p>
+          <a href="{% url 'pages:page' 1 'funcional-40' %}" class="btn btn-lg btn-outline-light mt-4 px-4">Saber Más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- About Start -->
+<div class="container py-5">
+  <div class="d-flex flex-column text-center mb-5">
+    <h4 class="text-primary font-weight-bold">ALGO SOBRE MÍ...</h4>
+    <h4 class="display-4 font-weight-bold">Experiencia y Pasión Entrenando</h4>
+</div>
+  <div class="row align-items-center">
+      <!-- Imagen de la sección "Sobre Mí" -->
+      <div class="col-lg-6 mb-4 mb-lg-0">
+          <img class="img-fluid rounded-lg shadow-lg zoom-effect" src="{% static 'core/img/about-mi.webp' %}" alt="Imagen sobre mí">
+      </div>
+
+      <!-- Contenido sobre el autor -->
+      <div class="col-lg-6">
+          <p class="lead mb-4">Soy un profesional apasionado por mi trabajo con más de 20 años de experiencia en diversas áreas del ámbito físico y técnico. Mi enfoque siempre está en ofrecer soluciones personalizadas y de calidad para ayudar y acompañar a cumplir tus objetivos.</p>
+
+          <!-- Sección de Estudios y Certificaciones -->
+          <div class="row py-3">
+              <div class="col-sm-6">
+                  <i class="flaticon-medal display-2 text-primary mb-3"></i>
+                  <h4 class="font-weight-bold mb-3">Mis Estudios y Certificaciones</h4>
+                  <ul class="list-unstyled">
+                      <li><i class="fas fa-check-circle text-primary"></i> Instructor de Musculación</li>
+                      <li><i class="fas fa-check-circle text-primary"></i> Preparador Físico</li>
+                      <li><i class="fas fa-check-circle text-primary"></i> Entrenador Personal</li>
+                      <li><i class="fas fa-check-circle text-primary"></i> Instructor de CrossTraining</li>
+                      <li><i class="fas fa-check-circle text-primary"></i> Instructor de Entrenamiento Funcional</li>
+                  </ul>
+              </div>
+          </div>
+
+          <!-- Botón de consulta -->
+          <a href="https://wa.me/5493516889414" class="btn btn-lg btn-primary text-white px-4 py-2 rounded-pill shadow-sm">¡Hazme una consulta!</a>
+      </div>
+  </div>
+</div>
+<!-- About End -->
+
+
+<!-- Features Start -->
+<div class="container-fluid my-5">
+  <div class="row">
+      <div class="col-lg-4 p-0">
+          <div class="d-flex align-items-center bg-secondary text-white px-5" style="min-height: 300px;">
+              <i class="flaticon-training display-3 text-primary mr-3"></i>
+              <div class="">
+                  <h2 class="text-white mb-3">Progresión</h2>
+                  <p>El progreso no es casualidad, es constancia, enfoque y trabajo bien guiado. Entrená con un plan, avanzá con propósito.</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-4 p-0">
+          <div class="d-flex align-items-center bg-primary text-white px-5" style="min-height: 300px;">
+              <i class="flaticon-weightlifting display-3 text-secondary mr-3"></i>
+              <div class="">
+                  <h2 class="text-white mb-3">Entrenamiento</h2>
+                  <p>Entrenar es mucho más que moverse. Es construir salud, fortaleza y bienestar a través de cada sesión.</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-4 p-0">
+          <div class="d-flex align-items-center bg-secondary text-white px-5" style="min-height: 300px;">
+              <i class="flaticon-treadmill display-3 text-primary mr-3"></i>
+              <div class="">
+                  <h2 class="text-white mb-3">Objetivos</h2>
+                  <p>Tu meta es única, tu entrenamiento también. Definí tu rumbo, y te acompaño a lograrlo paso a paso.</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Features End -->
+ 
+  
+<!-- GYM Feature Start -->
+<div class="container feature pt-5">
+  <div class="text-center mb-5">
+      <h4 class="text-primary font-weight-bold text-uppercase">¿Por qué entrenar conmigo?</h4>
+      <h2 class="display-4 font-weight-bold">Beneficios reales para tu cuerpo y tu vida</h2>
+  </div>
+  <div class="row">
+      <!-- Beneficio 1 -->
+      <div class="col-md-6 mb-4">
+          <div class="feature-card p-3 shadow-sm rounded bg-white h-100">
+              <div class="row no-gutters align-items-center">
+                  <div class="col-sm-5 text-center">
+                      <img class="img-fluid rounded mb-2" src="{% static 'core/img/feature-1.jpg' %}" alt="Experiencia">
+                      <div class="feature-icon text-primary mt-2">
+                          <i class="flaticon-barbell display-4"></i>
+                      </div>
+                  </div>
+                  <div class="col-sm-7 pl-3">
+                      <h4 class="font-weight-bold mb-2">Más de 20 Años de Experiencia</h4>
+                      <p class="mb-0">Diseño entrenamientos efectivos, adaptados a cada persona. Mi experiencia garantiza resultados reales desde el primer mes.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Beneficio 2 -->
+      <div class="col-md-6 mb-4">
+          <div class="feature-card p-3 shadow-sm rounded bg-white h-100">
+              <div class="row no-gutters align-items-center">
+                  <div class="col-sm-5 text-center">
+                      <img class="img-fluid rounded mb-2" src="{% static 'core/img/feature-2.jpg' %}" alt="Salud y fuerza">
+                      <div class="feature-icon text-primary mt-2">
+                          <i class="flaticon-training display-4"></i>
+                      </div>
+                  </div>
+                  <div class="col-sm-7 pl-3">
+                      <h4 class="font-weight-bold mb-2">Salud, Fuerza y Confianza</h4>
+                      <p class="mb-0">Con cada sesión vas a mejorar tu condición física, ganar seguridad en tus movimientos y sentirte más fuerte en tu día a día.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Beneficio 3 -->
+      <div class="col-md-6 mb-4">
+          <div class="feature-card p-3 shadow-sm rounded bg-white h-100">
+              <div class="row no-gutters align-items-center">
+                  <div class="col-sm-5 text-center">
+                      <img class="img-fluid rounded mb-2" src="{% static 'core/img/feature-3.jpg' %}" alt="Atención personalizada">
+                      <div class="feature-icon text-primary mt-2">
+                          <i class="flaticon-trends display-4"></i>
+                      </div>
+                  </div>
+                  <div class="col-sm-7 pl-3">
+                      <h4 class="font-weight-bold mb-2">Atención Personalizada Real</h4>
+                      <p class="mb-0">No sos un número más. Te acompaño de cerca, escucho tus objetivos y ajusto el entrenamiento a tu ritmo y evolución.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Beneficio 4 -->
+      <div class="col-md-6 mb-4">
+          <div class="feature-card p-3 shadow-sm rounded bg-white h-100">
+              <div class="row no-gutters align-items-center">
+                  <div class="col-sm-5 text-center">
+                      <img class="img-fluid rounded mb-2" src="{% static 'core/img/feature-4.jpg' %}" alt="Corrección técnica">
+                      <div class="feature-icon text-primary mt-2">
+                          <i class="flaticon-support display-4"></i>
+                      </div>
+                  </div>
+                  <div class="col-sm-7 pl-3">
+                      <h4 class="font-weight-bold mb-2">Correcciones en el Momento</h4>
+                      <p class="mb-0">Te corrijo en tiempo real para que cada ejercicio sea seguro y efectivo. Así evitás lesiones y progresás sin frustraciones.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- GYM Feature End -->
+
+  <style>
+    .custom-bg {
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("{% static 'core/img/CTA LVTRAINER APP.jpg' %}") no-repeat center center;
+        background-size: cover;
+    }
+</style>
+
+<!-- CTA -->
+<div class="subscribe custom-bg container-fluid my-5 py-5 text-center">
+    <h4 class="display-4 text-white font-weight-bold mt-5 mb-3">Sumate a Entrenar Conmigo!</h4>
+    <p class="text-white mb-4">Contactame y Organizamos Tú Rutina</p>
+    <div class="d-flex justify-content-center">
+        <a href="https://wa.me/5493516889414" class="btn btn-lg btn-outline-light mt-3 mt-md-5 py-md-3 px-md-5">WhatsApp</a>
+    </div>
+</div>
+<!-- CTA End -->
+  
+  
+
+<!-- Blog Start -->
+<div class="container pt-5">
+    <div class="d-flex flex-column text-center mb-5">
+        <h4 class="text-primary font-weight-bold">LVTRAINER BLOG</h4>
+        <h4 class="display-4 font-weight-bold">Últimos Artículos del Blog</h4>
+    </div>
+    <div class="row">
+        {% for post in latest_posts %}
+        <div class="col-lg-6 mb-5 blog-item">
+            {% if post.image %}
+                <img class="img-fluid mb-4" src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% endif %}
+            <div class="d-flex align-items-center mb-4">
+                <div class="d-flex flex-column align-items-center justify-content-center rounded-circle bg-primary text-white" style="width: 80px; height: 80px;">
+                    <small>{{ post.created_at|date:"d" }}</small>
+                    <strong class="text-uppercase m-0 text-white">{{ post.created_at|date:"M" }}</strong>
+                    <small>{{ post.created_at|date:"Y" }}</small>
+                </div>
+                <div class="pl-3">
+                    <h3 class="font-weight-bold">{{ post.title }}</h3>
+                    <div class="d-flex">
+                        <small class="mr-2 text-muted"><i class="fa fa-user"></i> {{ post.author.username }}</small>
+                        <small class="mr-2 text-muted"><i class="fa fa-comments"></i> {{ post.comments.count }} Comentarios</small>
+                    </div>
+                </div>
+            </div>
+            <p>{{ post.content|truncatewords:30 }}</p>
+            <a class="btn btn-outline-primary mt-2 px-3" href="{% url 'blog_detail' post.slug %}">Leer Más <i class="fa fa-angle-right"></i></a>
+        </div>
+        {% empty %}
+        <p class="text-muted">No hay artículos publicados aún.</p>
+        {% endfor %}
+    </div>
+</div>
+<!-- Blog End -->
+
+<!-- Productos Destacados Scroll -->
+<div class="container py-5">
+  <div class="d-flex flex-column text-center mb-4">
+    <h4 class="text-primary font-weight-bold">LVTRAINER TIENDA</h4>
+    <h4 class="display-4 font-weight-bold">¡Productos Destacados!</h4>
+  </div>
+
+  <!-- Carrusel horizontal -->
+  <div class="d-flex overflow-auto pb-3 px-1" style="gap: 1rem;">
+    {% for product in destacados %}
+      <div class="card border-0 shadow-sm" style="min-width: 180px; max-width: 180px; flex: 0 0 auto;">
+        <img src="{{ product.image.url }}" class="card-img-top" style="height: 150px; object-fit: cover;" alt="{{ product.name }}">
+        <div class="card-body text-center px-2 py-3">
+          <h6 class="card-title mb-1">{{ product.name|truncatechars:30 }}</h6>
+          <p class="text-primary font-weight-bold mb-2">${{ product.price }}</p>
+          <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-sm btn-outline-primary">Ver</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Botón para ir a la tienda -->
+  <div class="text-center mt-4">
+    <a href="{% url 'shop:product_list' %}" class="btn btn-outline-dark px-4 py-2">Ver todos los productos</a>
+  </div>
+</div>
+
+{% endblock %}

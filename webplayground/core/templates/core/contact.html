@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block title %}Contacto{% endblock %}
+
+{% block content %}
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+            <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Contacto</h4>
+            <div class="d-inline-flex">
+                <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+                <p class="m-0 text-white px-2">/</p>
+                <p class="m-0 text-white">Contacto</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container pt-5">
+        <div class="d-flex flex-column text-center mb-5">
+            <h4 class="text-primary font-weight-bold">CONTÁCTAME!</h4>
+            <h4 class="display-4 font-weight-bold">Donde Ubicarme?</h4>
+        </div>
+        <div class="row px-3 pb-2">
+            <div class="col-sm-4 text-center mb-3">
+                <i class="fa fa-2x fa-map-marker-alt mb-3 text-primary"></i>
+                <h4 class="font-weight-bold">Ubicación</h4>
+                <p>Gimnasio C.A.F Quantum</p>
+            </div>
+            <div class="col-sm-4 text-center mb-3">
+                <i class="fa fa-2x fa-phone-alt mb-3 text-primary"></i>
+                <h4 class="font-weight-bold">Teléfono</h4>
+                <p>0351-6 88 94 14</p>
+            </div>
+            <div class="col-sm-4 text-center mb-3">
+                <i class="far fa-2x fa-envelope mb-3 text-primary"></i>
+                <h4 class="font-weight-bold">Email</h4>
+                <p>lvtrainer@gmail.com</p>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% block title %}Redireccionando...{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+  <h3>Redirigiendo a WhatsApp...</h3>
+  <p>En unos segundos serás redirigido para confirmar tu pago.</p>
+  <a href="{{ whatsapp_url }}" class="btn btn-success mt-3">Ir ahora</a>
+</div>
+
+<script>
+  setTimeout(function() {
+    window.location.href = "{{ whatsapp_url }}";
+  }, 2500);
+</script>
+{% endblock %}

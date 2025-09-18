@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Servicios{% endblock %}
+{% block content %}
+
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+      <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Mis Servicios</h4>
+      <div class="d-inline-flex">
+          <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+          <p class="m-0 text-white px-2">/</p>
+          <p class="m-0 text-white">Servicios</p>
+      </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<main role="main">
+  <div class="container mb-4">
+    {% for page in page_list|dictsort:"id" reversed %}
+      <div class="row mt-3">
+        <div class="col-md-9 mx-auto">
+          <h2 class="mb-4">{{page.title}}</h2>
+
+          <!-- Mostrar imagen si existe -->
+          {% if page.image %}
+            <img src="{{ page.image.url }}" alt="{{ page.title }}" class="img-fluid mb-3 page-image">
+          {% endif %}
+
+          <div>
+            <p>{{ page.content|striptags|safe|truncatechars:"200" }}</p>
+            <p><a href="{% url 'pages:page' page.id page.title|slugify %}">Leer más</a>
+              {% if request.user.is_staff %}
+                | <a href="{% url 'pages:update' page.id %}">Editar</a>
+                | <a href="{% url 'pages:delete' page.id %}">Borrar</a>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</main>
+
+{% endblock %}

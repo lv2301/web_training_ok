@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+      <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">TIENDA LVTRAINER</h4>
+      <div class="d-inline-flex">
+          <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+          <p class="m-0 text-white px-2">/</p>
+          <p class="m-0 text-white"><a class="text-white" href="{% url 'shop:product_list' %}">Tienda</a></p>
+      </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+    </div>
+    <div class="col-md-6">
+      <h1 class="mb-3">{{ product.name }}</h1>
+
+      {% if product.old_price %}
+        <p class="text-muted text-decoration-line-through">${{ product.old_price }}</p>
+      {% endif %}
+
+      <p class="h4 text-success">${{ product.price }}</p>
+      <p class="mt-4">{{ product.description }}</p>
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'shop:cart_add' product.id %}" class="btn btn-success mt-3">Agregar al carrito</a>
+      {% else %}
+        <a href="{% url 'login' %}?next={% url 'shop:product_detail' product.slug %}" class="btn btn-outline-primary mt-3">Iniciá sesión para comprar</a>
+      {% endif %}
+      <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary mt-3">Volver a la tienda</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

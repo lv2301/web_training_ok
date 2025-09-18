@@ -1,0 +1,275 @@
+body {
+  padding-top: 0 !important;
+}
+
+header {
+  margin-top: 0 !important;
+}
+
+.navbar.fixed-top {
+  top: 0 !important;
+}
+
+  /* Redondeo de la imagen */
+
+  .zoom-effect {
+    border-radius: 20px; /* Más redondeado */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efecto suave de transición */
+}
+
+.zoom-effect:hover {
+    transform: scale(1.1); /* Aumenta el tamaño de la imagen cuando el usuario pasa el mouse */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Agrega una sombra más fuerte al hacer hover */
+}
+
+  
+@media (max-width: 768px) {
+  #blog-carousel img {
+    height: 60vh;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 769px) {
+  #blog-carousel img {
+    height: 75vh;
+    object-fit: cover;
+  }
+}
+
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #25D366;
+  color: white;
+  border-radius: 50%;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* ===============================
+   NAVBAR (estructura y estilo)
+   =============================== */
+.navbar-nav.gap-3 > li {
+  margin-left: 1rem;
+}
+
+/* ===============================
+   LOGIN PAGE
+   =============================== */
+.errorlist{color:red;}
+
+  /* Centrado vertical en mobile */
+  main {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+form h3 {
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+form input[type="text"],
+form input[type="password"] {
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.btn-block {
+  border-radius: 50px;
+  padding: 0.75rem;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,123,255,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.btn-block:hover {
+  background-color: #0056b3;
+}
+
+.form-links p {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.form-links a {
+  color: #007bff;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.form-links a:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   REGISTRO PAGE (reutiliza estilos de login)
+   =============================== */
+form input[type="email"] {
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+
+/* ===============================
+   BLOG LIST PAGE
+   =============================== */
+.blog-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.blog-item img {
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.blog-item img:hover {
+  transform: scale(1.03);
+}
+
+.blog-item .btn {
+  border-radius: 30px;
+  font-weight: 500;
+}
+
+.pagination .page-link {
+  border-radius: 50px;
+  margin: 0 5px;
+  padding: 0.5rem 1rem;
+  color: #007bff;
+  border-color: #007bff;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+/* ===============================
+   BLOG SINGLE PAGE
+   =============================== */
+.post-detail {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.post-meta .date-badge {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #007bff;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.media {
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card form textarea,
+.card form input,
+.card form select {
+  border-radius: 8px;
+}
+
+.card form button {
+  border-radius: 30px;
+  padding: 0.5rem 1.5rem;
+  font-weight: bold;
+}
+
+/* ===============================
+   TIENDA PAGE
+   =============================== */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  object-fit: cover;
+  height: 220px;
+  transition: transform 0.3s ease;
+}
+
+.card-img-top:hover {
+  transform: scale(1.03);
+}
+
+.btn-primary, .btn-outline-primary {
+  border-radius: 30px;
+  padding: 0.4rem 1.2rem;
+  font-weight: 500;
+}
+
+.btn-sm {
+  border-radius: 30px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.list-inline-item {
+  margin-bottom: 0.5rem;
+}
+.feature-card {
+  transition: all 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+.feature-icon i {
+  font-size: 3rem;
+}

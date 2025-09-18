@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+      <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">TIENDA LVTRAINER</h4>
+      <div class="d-inline-flex">
+          <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+          <p class="m-0 text-white px-2">/</p>
+          <p class="m-0 text-white">Tienda</p>
+      </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Filtro -->
+<div class="mb-4">
+  <strong>Filtrar por categoría:</strong>
+  <ul class="list-inline">
+    <li class="list-inline-item">
+      <a href="{% url 'shop:product_list' %}" class="btn btn-sm {% if not current_category %}btn-primary{% else %}btn-outline-primary{% endif %}">Todas</a>
+    </li>
+    {% for cat in categories %}
+      <li class="list-inline-item">
+        <a href="?category={{ cat.slug }}" class="btn btn-sm {% if cat.slug == current_category %}btn-primary{% else %}btn-outline-primary{% endif %}">
+          {{ cat.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+<div class="container py-5">
+  <div class="row">
+    {% for product in products %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+          <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            {% if product.old_price %}
+              <p class="card-text">
+                <span class="text-muted text-decoration-line-through">${{ product.old_price }}</span>
+                <span class="fw-bold text-success ms-2">${{ product.price }}</span>
+              </p>
+            {% else %}
+              <p class="card-text fw-bold">${{ product.price }}</p>
+            {% endif %}
+            <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary mt-2">Ver detalle</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No hay productos disponibles.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Paginación -->
+  {% if is_paginated %}
+    <div class="pagination justify-content-center mt-4">
+      {% if page_obj.has_previous %}
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+      {% endif %}
+
+      <span class="mx-3">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

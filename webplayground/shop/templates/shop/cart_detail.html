@@ -1,0 +1,259 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+    <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">TIENDA LVTRAINER</h4>
+    <div class="d-inline-flex">
+      <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+      <p class="m-0 text-white px-2">/</p>
+      <p class="m-0 text-white">Tienda</p>
+    </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container py-5">
+  <h2 class="mb-4">Tu carrito</h2>
+
+  {% if cart %}
+    <div class="table-responsive">
+      <!-- Tabla para dispositivos grandes -->
+      <table class="table table-hover table-bordered table-striped d-none d-md-table">
+        <thead class="table-light">
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Total</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart %}
+            <tr>
+              <td>{{ item.product.name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>${{ item.price }}</td>
+              <td>${{ item.total_price }}</td>
+              <td class="text-center">
+                <a href="{% url 'shop:cart_remove' item.product.id %}" class="btn btn-sm btn-danger rounded-circle">
+                  <i class="fa fa-trash-alt"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="3" class="text-end"><strong>Total:</strong></td>
+            <td colspan="2"><strong>${{ cart.get_total_price }}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Vista adaptada para dispositivos móviles -->
+      <div class="d-md-none">
+        {% for item in cart %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.product.name }}</h5>
+            <p><strong>Cantidad:</strong> {{ item.quantity }}</p>
+            <p><strong>Precio:</strong> ${{ item.price }}</p>
+            <p><strong>Total:</strong> ${{ item.total_price }}</p>
+            <a href="{% url 'shop:cart_remove' item.product.id %}" class="btn btn-sm btn-danger">
+              <i class="fa fa-trash-alt"></i> Eliminar
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+        
+        <!-- Total del carrito para dispositivos móviles -->
+        <div class="card mb-3">
+          <div class="card-body text-center">
+            <h5><strong>Total:</strong> ${{ cart.get_total_price }}</h5>
+          </div>
+        </div>
+        <div class="text-end mt-4">
+          <a href="{% url 'shop:product_list' %}" class="btn btn-outline-secondary me-2">Seguir comprando</a>
+          <a href="{% url 'shop:checkout_whatsapp' %}" class="btn btn-success">Realizar pedido por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      No tenés productos en el carrito.
+    </div>
+    <a href="{% url 'shop:product_list' %}" class="btn btn-primary">Volver a la tienda</a>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+<!-- CSS adicional para mejorar la apariencia -->
+<style>
+  .table th, .table td {
+    vertical-align: middle;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+
+  .table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+  }
+
+  .table-light th, .table-light td {
+    background-color: #f8f9fa;
+  }
+
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+
+  .btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+  }
+
+  .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  .card {
+    border: none;
+  }
+
+  /* Aseguramos que la tabla sea completamente responsiva */
+  .table th, .table td {
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  /* Estilo para pantallas pequeñas - Convertir la tabla a un formato de tarjeta */
+  @media (max-width: 767px) {
+    .d-md-none {
+      display: block;
+    }
+
+    /* Ocultar la tabla original en pantallas pequeñas */
+    .d-md-table {
+      display: none;
+    }
+
+    /* Mejorar la apariencia de las tarjetas */
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .card-body p {
+      font-size: 0.9rem;
+    }
+
+    .btn-sm {
+      padding: 0.25rem 0.75rem;
+    }
+  }
+   /* Tarjetas de producto */
+   .card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  
+  .card-img-top {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    object-fit: cover;
+    height: 220px;
+    transition: transform 0.3s ease;
+  }
+  
+  .card-img-top:hover {
+    transform: scale(1.03);
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+  }
+  
+  /* Botones */
+  .btn-primary, .btn-outline-primary {
+    border-radius: 30px;
+    padding: 0.4rem 1.2rem;
+    font-weight: 500;
+  }
+  
+  .btn-sm {
+    border-radius: 30px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Filtros */
+  .list-inline-item {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Paginación moderna */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .page-link {
+    border-radius: 30px !important;
+    margin: 0 5px;
+    padding: 0.4rem 1rem;
+    color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .page-link:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card-img-top {
+      height: 180px;
+    }
+  
+    .card-title {
+      font-size: 1rem;
+    }
+  
+    .card-text {
+      font-size: 0.95rem;
+    }
+  }
+</style>

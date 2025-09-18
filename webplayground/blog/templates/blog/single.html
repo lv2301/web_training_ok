@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+        <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">{{ post.title }}</h4>
+        <div class="d-inline-flex">
+            <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+            <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">{{ post.title }}</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Blog Detail Start -->
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 post-detail">
+            {% if post.image %}
+                <div class="blog-item">
+                  <img class="img-fluid mb-4" src="{{ post.image.url }}" alt="{{ post.title }}">
+                </div>
+            {% endif %}
+            
+            <div class="post-meta mb-4">
+                <div class="date-badge bg-danger text-white">
+                    <span>{{ post.created_at|date:"d" }}</span>
+                    <strong class="text-uppercase m-0">{{ post.created_at|date:"M" }}</strong>
+                    <span>{{ post.created_at|date:"Y" }}</span>
+                </div>
+                <div class="pl-3">
+                    <h1 class="font-weight-bold mb-3">{{ post.title }}</h1>
+                    <div class="d-flex">
+                        <span class="mr-2 text-muted"><i class="fa fa-user"></i> {{ post.author.username }}</span>
+                        <span class="mr-2 text-muted"><i class="fa fa-comments"></i> 0 Comments</span>
+                    </div>
+                </div>
+            </div>
+            <div class="post-content">
+                {{ post.content|safe }}
+            </div>            
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <h3 class="mb-4 font-weight-bold">Comentarios</h3>
+
+    <div class="card p-3 mb-4">
+        {% for comment in comments %}
+            <div class="media mb-4">
+                <img src="{% static 'core/img/user.jpg' %}" alt="User" class="mr-3 mt-1 rounded-circle" style="width:50px; height:50px;">
+                <div class="media-body">
+                    <h5 class="mb-1">{{ comment.user.username }} <small class="text-muted">{{ comment.created_at|date:"d M Y H:i" }}</small></h5>
+                    <p class="m-0">{{ comment.content }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">Aún no hay comentarios.</p>
+        {% endfor %}
+    </div>
+
+    {% if user.is_authenticated %}
+        <h3 class="mb-4 font-weight-bold">Deja tu comentario</h3>
+        <div class="card p-3">
+            <form method="post" action="{% url 'add_comment' slug=post.slug %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary mt-2">Comentar</button>
+            </form>
+        </div>
+    {% else %}
+        <p><a href="{% url 'login' %}">Inicia Sesión</a> para comentar.</p>
+        <p><a href="{% url 'signup' %}">Regístrate Aquí</a> si no tienes usuario y contraseña</p>
+    {% endif %}
+</div>
+<!-- Blog Detail End -->
+{% endblock %}

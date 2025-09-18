@@ -1,0 +1,154 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Mi Rutina{% endblock %}
+{% block content %}
+
+<style>
+  .routine-card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+  }
+
+  .routine-card-header {
+    background-color: #dc3545; /* Rojo para llamar la atención */
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+
+  .routine-table {
+    width: 100%;
+    font-size: 1rem;
+    border-collapse: collapse;
+  }
+
+  .routine-table th, .routine-table td {
+    padding: 0.75rem;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .routine-table th {
+    background-color: #f8f9fa;
+    color: #343a40;
+    font-weight: bold;
+  }
+
+  .routine-table td {
+    background-color: #fff;
+    color: #343a40;
+  }
+
+  .btn-week-nav {
+    border-radius: 1.5rem;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .btn-week-nav:hover {
+    transform: scale(1.05);
+  }
+
+  /* Estilo de botones de semana */
+  .btn-prev {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  .btn-next {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .routine-card-header {
+      font-size: 1rem;
+      padding: 0.8rem;
+    }
+
+    .routine-table th, .routine-table td {
+      padding: 0.5rem;
+    }
+  }
+</style>
+
+
+<!-- Encabezado de la página -->
+<div class="container-fluid page-header mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 250px">
+    <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Mi Rutina</h4>
+    <div class="d-inline-flex">
+      <p class="m-0 text-white"><a href="{% url 'home' %}" class="text-white">Inicio</a></p>
+      <p class="m-0 text-white px-2">/</p>
+      <p class="m-0 text-white">Mi Rutina</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contenido de la Rutina -->
+<div class="container mb-5">
+  {% if rutina %}
+    <h4 class="text-center mb-4 text-danger">Semana {{ current_week }}</h4>
+
+    {% for day in days %}
+      <div class="routine-card">
+        <div class="routine-card-header">{{ day.day_name }}</div>
+        <div class="card-body p-3">
+          <table class="table routine-table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Ejercicio</th>
+                <th>Series</th>
+                <th>Reps</th>
+                <th>Descanso</th>
+                <th>Video</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for exercise in day.exercises.all %}
+                <tr>
+                  <td>{{ exercise.name }}</td>
+                  <td>{{ exercise.sets }}</td>
+                  <td>{{ exercise.reps }}</td>
+                  <td>{{ exercise.rest_time }}</td>
+                  <td>
+                    {% if exercise.video_link %}
+                      <a href="{{ exercise.video_link }}" target="_blank">📺 Ver</a>
+                    {% else %}
+                      <span class="text-muted">–</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endfor %}
+
+    <!-- Navegación de semanas -->
+    <div class="d-flex justify-content-between mt-4">
+      {% if current_week > 1 %}
+        <a href="?week={{ current_week|add:-1 }}" class="btn btn-prev btn-week-nav">⬅ Semana anterior</a>
+      {% endif %}
+      {% if has_next_week %}
+        <a href="?week={{ current_week|add:1 }}" class="btn btn-next btn-week-nav">Semana siguiente ➡</a>
+      {% endif %}
+    </div>
+
+  {% else %}
+    <div class="alert alert-warning text-center">
+      No tenés una rutina asignada aún. Contactá con tu entrenador.
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
